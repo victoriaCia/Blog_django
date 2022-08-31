@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark space-btw">
     <div class="container-fluid">
-      <a class="navbar-brand" href="{% url 'home' %}">Navbar</a>
+      <a class="navbar-brand" href="{% url 'home' %}">Welcome</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -12,14 +12,25 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'blog:home' %}">Blog</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'blog:posts_list' %}">Posts</a>
+          </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Options
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              {% if user.is_authenticated %}
+              <span class="dropdown-item">| Logged in as {{user.username}} |</span>
               <li><a class="dropdown-item" href="{% url 'Blog:blog_create' %}">New Blog</a></li>
               <li><a class="dropdown-item" href="#">New Post</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
+              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><a class="dropdown-item" href="{% url 'Blog:logout' %}">Logout</a></li>
+              {% else %}
+              <li><a class="dropdown-item" href="{% url 'Blog:sign_up' %}">Sign up</a></li>
+              <li><a class="dropdown-item" href="{% url 'Blog:login' %}">Login</a></li>
+              {% endif %}
+              <li><a class="dropdown-item" href="#">Contact</a></li>
             </ul>
           </li>
         </ul>

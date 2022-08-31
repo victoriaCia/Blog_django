@@ -4,6 +4,7 @@ from django.views.generic.edit import FormView
 from django.contrib.auth import login, logout, authenticate
 from blog.forms import BlogModelForm, RegistrationForm
 from .models import Blog, Entry
+from django.db.models import Q
 
 # Create your views here.
 
@@ -96,3 +97,12 @@ def sign_up(request):
     
     return render(request, 'registration/sign_up.html', {'form':form})
 
+def search_bar(request):
+    q = request.GET.get('q', '')
+    query = Q(name__icontains=q)
+    blogs = Blog.objects.filter(query)
+    entries = Entry.objects.filter(Q(headline__icontains=q))
+    context1 ={'blogs':blogs}
+    context2 ={'entries':entries}
+    context = {**context1, **context2}
+    return render(request, 'blog/search_results.html', context)

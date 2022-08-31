@@ -1,0 +1,33 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{name_blog}} | {{entry.headline|striptags|truncatechars:30}}{% endblock %}  <!--no aparece-->
+
+{% block content %}
+
+<section class="section-container">
+    <a href="{% url 'Blog:entry_list' entry.blog.id %}"><h1>{{name_blog}}</h1></a>
+
+    <h2>{{entry.headline}}</h2>
+
+    <div>
+        <img src="{{entry.image.url}}">
+    </div>
+
+
+    <div class="form-container">
+        <p>{{entry.body_text|safe}}</p>
+        <p>{{entry.pub_date|date:"Y-m-d"}}</p>
+    </div>
+
+    <div style="color: white;">
+        {% if request.user.is_authenticated %}
+            Authenticated
+        {% else %}
+            Not Authenticated
+        {% endif %}
+    </div>
+
+    
+</section>
+
+{% endblock %}

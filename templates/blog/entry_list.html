@@ -1,0 +1,32 @@
+{% extends 'core/base.html' %}
+
+{% load humanize %}   <!--ver filtros-->
+
+{% block title %}Blog | {{name_blog}}{% endblock %}
+
+{% block content %}
+
+
+<section class="posts">
+    <h1>{{name_blog}}</h1>
+
+    <div class="post-container">
+        {% for entry in entries %}
+        <div class="post-item">
+            <div>
+                <a href="{% url 'Blog:entry_detail' entry.id %}"><h1> {{entry.headline}}</h1></a>
+                <p>{{entry.body_text|striptags|truncatechars:200}}</p>
+                <span>{{entry.pub_date|timesince}} ago</span>
+                <span> - Rating: {{entry.rating}}</span>
+            </div>
+            <div>
+                <button class="button-list"><a href="#">Update</a></button>
+                <button class="button-list"><a href="#">Delete</a></button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</section>
+
+{% endblock %}

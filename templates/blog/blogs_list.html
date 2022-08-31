@@ -1,0 +1,23 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Blog{% endblock %}
+
+{% block content %}
+
+<section class="posts">
+    <h1>Blogs</h1>
+
+    <div class="post-container">
+        {% for blog in blogs %}
+        <div class="post-item">
+            <div>
+                <a href="{% url 'Blog:entry_list' blog.id %}"><h1> {{blog.name}}</h1></a>
+                <p>{{blog.tagline|striptags|truncatechars:200}}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</section>
+
+{% endblock %}

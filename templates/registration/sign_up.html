@@ -1,0 +1,31 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+{% if messages %}  
+<ul>   
+    {% for message in messages %}  
+        <li>{{ message }}</li>  
+        {% endfor %}  
+</ul>   
+{% endif %}  
+
+<form method="POST">
+    {% csrf_token %}
+    {{form|crispy}}
+<p>Have an account? Login <a href="{% url 'Blog:login' %}">Here</a>!</p>
+<button type="submit" class="btn btn-success">Register</button>
+</form>
+<style>
+    li{
+        color: rgb(52, 19, 141);
+    }
+    label{
+        color: #fff;
+    }
+</style>
+{% endblock %}
